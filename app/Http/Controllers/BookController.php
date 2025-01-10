@@ -40,6 +40,23 @@ class BookController extends Controller
     {
         return view('books.edit', compact('book'));
     }
+    public function returnCopy(Book $book)
+    {
+        $book->increment('quantity');
+        return back()->with('success', 'Book returned successfully.');
+    }
+    
+    public function rentCopy(Book $book)
+    {
+        if ($book->quantity > 0) {
+            $book->decrement('quantity');
+            return back()->with('success', 'Book rented successfully.');
+        }
+    
+        return back()->with('error', 'Cannot rented book. Quantity is already zero.');
+    }
+    
+
     public function store(Request $request)
     {
         $request->validate([

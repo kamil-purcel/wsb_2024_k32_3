@@ -21,9 +21,27 @@
                     <p><strong>Quantity:</strong> {{ $book->quantity }}</p>
                     <p class="mt-4"><strong>Description:</strong></p>
                     <p>{{ $book->description }}</p>
+                    
+            @php $role = Auth::user()->role->name; @endphp
+            @if ($role === 'librarian' || $role === 'admin')
+                <div class="d-flex justify-content-between mt-2">
+                    <form action="{{ route('books.returnCopy', $book) }}" method="POST"
+                        class="w-50 me-2">
+                        @csrf
+                        <button type="submit" class="btn btn-secondary btn-sm w-100">Return</button>
+                    </form>
+                    @if ($book->quantity > 0)
+                        <form action="{{ route('books.rentCopy', $book) }}" method="POST"
+                            class="w-50">
+                            @csrf
+                            <button type="submit"
+                                class="btn btn-secondary btn-sm w-100">Rent</button>
+                        </form>
+                    @endif
+                </div>
+            @endif
                 </div>
             </div>
-
             <div class="mt-4 text-end">
                 <a href="{{ route('books.index') }}" class="btn btn-secondary">Return to Books</a>
             </div>

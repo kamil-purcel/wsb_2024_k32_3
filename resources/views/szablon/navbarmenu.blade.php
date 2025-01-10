@@ -6,22 +6,17 @@
       </button>
       <div class="navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              {{-- @if (Auth::check())
+              @if (Auth::check())
                   @php $role = Auth::user()->role->name; @endphp
                   @if ($role === 'admin')
                       <li class="nav-item">
                         <a class="nav-link" href="{{ route('users.index') }}">Manage Users</a>
                       </li>
-                  @elseif ($role === 'librarian')
                       <li class="nav-item">
-                        <a class="nav-link" href="{{ route('books.index') }}">Manage books</a>
-                      </li>
-                  @else
-                      <li class="nav-item">
-                          <a class="nav-link" href="{{ route('books.index') }}">Books</a>
+                        <a class="nav-link" href="{{ route('books.index') }}">Manage Books</a>
                       </li>
                   @endif
-              @endif --}}
+              @endif
           </ul>
           <div class="text-end">
               @if (Route::has('login'))

@@ -39,11 +39,13 @@ Route::get('/dashboard', function () {
     return redirect()->route('start');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->middleware(['role:librarian'])->group(function () {
+Route::middleware('auth')->middleware(['role:librarian,admin'])->group(function () {
     Route::resource('books', BookController::class);
+    Route::post('books/{book}/returnCopy', [BookController::class, 'returnCopy'])->name('books.returnCopy');
+    Route::post('books/{book}/rentCopy', [BookController::class, 'rentCopy'])->name('books.rentCopy');
 });
 
-Route::middleware('auth')->middleware(['role:user,librarian'])->group(function () {
+Route::middleware('auth')->middleware(['role:user,librarian,admin'])->group(function () {
     Route::resource('books', BookController::class)->only(['index', 'show']);
 });
 
